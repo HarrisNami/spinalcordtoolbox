@@ -238,7 +238,9 @@ class ForkStdoutToFile(object):
     Default mode is to send stdout to file AND to terminal
 
     """
+
     def __init__(self, filename="{}.log".format(__file__), to_file_only=False):
+
         self.terminal = sys.stdout
         self.log_file = open(filename, "a")
         self.filename = filename
@@ -609,7 +611,7 @@ def check_if_same_space(fname_1, fname_2):
     return all(around(q1, dec) == around(q2, dec))
 
 
-def printv(string, verbose=1, type='normal'):
+def printv(string, verbose=1, mess_type='normal'):
     """enables to print color coded messages, depending on verbose status """
 
     colors = {'normal': bcolors.normal, 'info': bcolors.green, 'warning': bcolors.yellow, 'error': bcolors.red,
@@ -618,12 +620,12 @@ def printv(string, verbose=1, type='normal'):
     if verbose:
         # Print color only if the output is the terminal
         if sys.stdout.isatty():
-            color = colors.get(type, bcolors.normal)
+            color = colors.get(mess_type, bcolors.normal)
             print(color + string + bcolors.normal)
         else:
             print(string)
 
-    if type == 'error':
+    if mess_type == 'error':
         from inspect import stack
         import traceback
 
