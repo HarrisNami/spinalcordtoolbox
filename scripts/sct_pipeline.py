@@ -121,7 +121,7 @@ def generate_data_list(folder_dataset, json_requirements=None, verbose=1):
     if not data_subjects:
         sct.printv('ERROR: No subject data were found in ' + folder_dataset + '. '
                    'Please organize your data correctly or provide a correct dataset.',
-                   verbose=verbose, type='error')
+                   verbose=verbose, mess_type='error')
 
     return data_subjects, subjects_dir
 
@@ -224,6 +224,7 @@ def test_function(function, folder_dataset, parameters='', nb_cpu=None, json_req
         all_results = async_results.get()
         results = process_results(all_results, subjects_name, function, folder_dataset, parameters)  # get the sorted results once all jobs are finished
 
+
     except KeyboardInterrupt:
         print "\nWarning: Caught KeyboardInterrupt, terminating workers"
         pool.terminate()
@@ -239,7 +240,7 @@ def test_function(function, folder_dataset, parameters='', nb_cpu=None, json_req
         # raise Exception
         # sys.exit(2)
 
-    return {'results': results, "compute_time": compute_time}
+    return {'results': results, "compute_time": compute_time, 'async_results': async_results}
 
 
 def get_parser():
@@ -309,7 +310,12 @@ def get_parser():
 # ====================================================================================================
 # Start program
 # ====================================================================================================
+import  logging
+
+FORMAT = "%(asctime)s - %(levelname)7s --%(lineno)5s %(funcName)25s():  %(message)s"
+
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG, format=FORMAT, stream=sys.stdout)
 
     # initialization
     addr_from = 'spinalcordtoolbox@gmail.com'
@@ -411,7 +417,6 @@ if __name__ == "__main__":
         tests_ret = test_function(function_to_test, dataset, parameters, nb_cpu, json_requirements, verbose)
         results = tests_ret['results']
         compute_time = tests_ret['compute_time']
-
         # after testing, redirect to log file
         if create_log:
             handle_log.restart()
@@ -451,6 +456,7 @@ if __name__ == "__main__":
 
         # display general results
         print '\nGLOBAL RESULTS:'
+        print tests_ret['async_results'].get_time_to_complete()
 
         print 'Duration: ' + str(int(round(compute_time))) + 's'
         # display results
