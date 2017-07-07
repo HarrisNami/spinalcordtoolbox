@@ -221,7 +221,7 @@ class Option:
         elif param.lower() in self.list_no_image:
             no_image = True
         else:
-            sct.printv("ERROR: File is not a NIFTI image file. Exiting", type='error')
+            sct.printv("ERROR: File is not a NIFTI image file. Exiting", mess_type='error')
 
         if nii:
             return param_tmp + '.nii'
@@ -230,7 +230,7 @@ class Option:
         elif no_image:
             return param
         else:
-            sct.printv("ERROR: File " + param + " does not exist. Exiting", type='error')
+            sct.printv("ERROR: File " + param + " does not exist. Exiting", mess_type='error')
 
     def checkFolder(self, param):
         # check if the folder exist. If not, create it.
@@ -247,9 +247,9 @@ class Option:
         else:
             result_creation = 0  # no need for checking
         if result_creation == 2:
-            sct.printv("ERROR: Permission denied for folder creation...", type="error")
+            sct.printv("ERROR: Permission denied for folder creation...", mess_type="error")
         elif result_creation == 1:
-            sct.printv("Folder " + param + " has been created.", 0, type='warning')
+            sct.printv("Folder " + param + " has been created.", 0, mess_type='warning')
         # add slash at the end
         param = sct.slash_at_the_end(param, 1)
         return param
@@ -419,7 +419,7 @@ class Parser:
                             else:
                                 dictionary[key] = str(path_to_add) + str(option)
             else:
-                sct.printv("ERROR: the option you provided is not contained in this parser. Please check the dictionary", verbose=1, type='error')
+                sct.printv("ERROR: the option you provided is not contained in this parser. Please check the dictionary", verbose=1, mess_type='error')
 
         return dictionary
 
@@ -560,8 +560,8 @@ class Usage:
         usage = self.header + self.description + self.usage + self.arguments_string
 
         if error:
-            sct.printv(error + '\nAborted...', type='warning')
-            sct.printv(usage, type='normal')
+            sct.printv(error + '\nAborted...', mess_type='warning')
+            sct.printv(usage, mess_type='normal')
             raise SyntaxError(error)
             exit(1)
         else:

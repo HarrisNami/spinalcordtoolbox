@@ -1208,7 +1208,7 @@ sct_Image
         # build the appearance model
         self.model = model
 
-        sct.printv('\nConstructing target image ...', verbose=gm_seg_param.verbose, type='normal')
+        sct.printv('\nConstructing target image ...', verbose=gm_seg_param.verbose, mess_type='normal')
         # construct target image
         self.target_image = Image(target_fname)
         original_hdr = self.target_image.hdr

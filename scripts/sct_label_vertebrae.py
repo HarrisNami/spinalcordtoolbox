@@ -57,7 +57,7 @@ class Param:
         list_objects = param_user.split(',')
         for object in list_objects:
             if len(object) < 2:
-                sct.printv('ERROR: Wrong usage.', 1, type='error')
+                sct.printv('ERROR: Wrong usage.', 1, mess_type='error')
             obj = object.split('=')
             setattr(self, obj[0], int(obj[1]))
 
@@ -352,7 +352,7 @@ def main(args=None):
         test(qcslice.Sagittal(Image(fname_in), Image(labeled_seg_file)))
         sct.printv('Sucessfully generated the QC results in %s' % qc_param.qc_results)
         sct.printv('Use the following command to see the results in a browser:')
-        sct.printv('sct_qc -folder %s' % qc_path, type='info')
+        sct.printv('sct_qc -folder %s' % qc_path, mess_type='info')
 
     # to view results
     sct.printv('\nDone! To view results, type:', verbose)
@@ -480,7 +480,7 @@ def vertebral_detection(fname, fname_seg, contrast, param, init_disc=[], verbose
             # Orient label in native orientation
             sct_image.main(args=['-i', 'initlabel_SAL.nii.gz', '-setorient', im_input.orientation, '-o', sct.add_suffix(fname, '_mask_viewer')])
         else:
-            sct.printv('\nERROR: the viewer has been closed before entering all manual points. Please try again.', verbose, type='error')
+            sct.printv('\nERROR: the viewer has been closed before entering all manual points. Please try again.', verbose, mess_type='error')
         # assign new init_disc_z value, which corresponds to the first vector of mask_points. Note, we need to substract from nz due to SAL orientation: in the viewer, orientation is S-I while in this code, it is I-S.
         init_disc = [nz - int(mask_points.split(',')[0]), 2]
 

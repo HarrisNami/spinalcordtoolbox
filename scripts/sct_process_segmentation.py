@@ -414,7 +414,7 @@ def compute_length(fname_segmentation, remove_temp_files, output_folder, overwri
             slices_lim = slices.strip().split(':')
             slices_list = range(int(slices_lim[0]), int(slices_lim[-1]) + 1)
             sct.printv('Spinal cord length slices ' + str(slices_lim[0]) + ' to ' + str(slices_lim[-1]) + '...',
-                       type='info')
+                       mess_type='info')
 
             length = 0.0
             for i in range(len(x_centerline_fit) - 1):
@@ -429,7 +429,7 @@ def compute_length(fname_segmentation, remove_temp_files, output_folder, overwri
                      warning_vert_levels=warning)
 
     elif (not (slices or vert_levels)) and (overwrite == 1):
-        sct.printv('WARNING: Flag \"-overwrite\" is only available if you select (a) slice(s) or (a) vertebral level(s) (flag -z or -vert) ==> CSA estimation per slice will be output in .txt and .pickle files only.', type='warning')
+        sct.printv('WARNING: Flag \"-overwrite\" is only available if you select (a) slice(s) or (a) vertebral level(s) (flag -z or -vert) ==> CSA estimation per slice will be output in .txt and .pickle files only.', mess_type='warning')
         length = np.nan
 
     else:
@@ -694,7 +694,7 @@ def compute_csa(fname_segmentation, output_folder, overwrite, verbose, remove_te
                 tangent_vect = normalize(np.array([x_centerline_deriv_rescorr[iz - min_z_index], y_centerline_deriv_rescorr[iz - min_z_index], z_centerline_deriv_rescorr[iz - min_z_index]]))
 
             except IndexError:
-                sct.printv('WARNING: Your segmentation does not seem continuous, which could cause wrong estimations at the problematic slices. Please check it, especially at the extremities.', type='warning')
+                sct.printv('WARNING: Your segmentation does not seem continuous, which could cause wrong estimations at the problematic slices. Please check it, especially at the extremities.', mess_type='warning')
 
             # compute the angle between the normal vector of the plane and the vector z
             angle = np.arccos(np.vdot(tangent_vect, axis_Z))
@@ -798,7 +798,7 @@ def compute_csa(fname_segmentation, output_folder, overwrite, verbose, remove_te
     for i in range(min_z_index, max_z_index + 1):
         file_results.write(str(int(i)) + ',' + str(csa[i - min_z_index]) + ',' + str(angles[i - min_z_index]) + '\n')
         # Display results
-        sct.printv('z = %d, CSA = %f mm^2, Angle = %f deg' % (i, csa[i - min_z_index], angles[i - min_z_index]), type='info')
+        sct.printv('z = %d, CSA = %f mm^2, Angle = %f deg' % (i, csa[i - min_z_index], angles[i - min_z_index]), mess_type='info')
     file_results.close()
     sct.printv('Save results in: ' + output_folder + 'csa_per_slice.txt\n', verbose)
 
@@ -853,7 +853,7 @@ def compute_csa(fname_segmentation, output_folder, overwrite, verbose, remove_te
             # parse the selected slices
             slices_lim = slices.strip().split(':')
             slices_list = range(int(slices_lim[0]), int(slices_lim[-1]) + 1)
-            sct.printv('Average CSA across slices ' + str(slices_lim[0]) + ' to ' + str(slices_lim[-1]) + '...', type='info')
+            sct.printv('Average CSA across slices ' + str(slices_lim[0]) + ' to ' + str(slices_lim[-1]) + '...', mess_type='info')
 
             CSA_for_selected_slices = []
             angles_for_selected_slices = []
@@ -872,8 +872,8 @@ def compute_csa(fname_segmentation, output_folder, overwrite, verbose, remove_te
             mean_angle = np.mean(np.asarray(angles_for_selected_slices))
             std_angle = np.std(np.asarray(angles_for_selected_slices))
 
-        sct.printv('Mean CSA: ' + str(mean_CSA) + ' +/- ' + str(std_CSA) + ' mm^2', type='info')
-        sct.printv('Mean angle: ' + str(mean_angle) + ' +/- ' + str(std_angle) + ' degrees', type='info')
+        sct.printv('Mean CSA: ' + str(mean_CSA) + ' +/- ' + str(std_CSA) + ' mm^2', mess_type='info')
+        sct.printv('Mean angle: ' + str(mean_angle) + ' +/- ' + str(std_angle) + ' degrees', mess_type='info')
 
         # write result into output file
         save_results(output_folder + 'csa_mean', overwrite, fname_segmentation, 'CSA', 'nb_voxels x px x py x cos(theta) slice-by-slice (in mm^2)', mean_CSA, std_CSA, slices, actual_vert=vert_levels_list, warning_vert_levels=warning)
@@ -883,16 +883,16 @@ def compute_csa(fname_segmentation, output_folder, overwrite, verbose, remove_te
         if slices == '0':
             volume = 0.0
         else:
-            sct.printv('Compute the volume in between slices ' + str(slices_lim[0]) + ' to ' + str(slices_lim[-1]) + '...', type='info')
+            sct.printv('Compute the volume in between slices ' + str(slices_lim[0]) + ' to ' + str(slices_lim[-1]) + '...', mess_type='info')
             nb_vox = np.sum(data_seg[:, :, slices_list])
             volume = nb_vox * px * py * pz
-        sct.printv('Volume in between the selected slices: ' + str(volume) + ' mm^3', type='info')
+        sct.printv('Volume in between the selected slices: ' + str(volume) + ' mm^3', mess_type='info')
 
         # write result into output file
         save_results(output_folder + 'csa_volume', overwrite, fname_segmentation, 'volume', 'nb_voxels x px x py x pz (in mm^3)', volume, np.nan, slices, actual_vert=vert_levels_list, warning_vert_levels=warning)
 
     elif (not (slices or vert_levels)) and (overwrite == 1):
-        sct.printv('WARNING: Flag \"-overwrite\" is only available if you select (a) slice(s) or (a) vertebral level(s) (flag -z or -vert) ==> CSA estimation per slice will be output in .txt and .pickle files only.', type='warning')
+        sct.printv('WARNING: Flag \"-overwrite\" is only available if you select (a) slice(s) or (a) vertebral level(s) (flag -z or -vert) ==> CSA estimation per slice will be output in .txt and .pickle files only.', mess_type='warning')
 
     # Remove temporary files
     if remove_temp_files:
@@ -985,7 +985,7 @@ def save_results(fname_output, overwrite, fname_data, metric_name, method, mean,
     # Save results in a MS Excel file
     # if the user asked for no overwriting but the specified output file does not exist yet
     if (not overwrite) and (not os.path.isfile(fname_output + '.xls')):
-        sct.printv('WARNING: You asked to edit the pre-existing file \"' + fname_output + '.xls\" but this file does not exist. It will be created.', type='warning')
+        sct.printv('WARNING: You asked to edit the pre-existing file \"' + fname_output + '.xls\" but this file does not exist. It will be created.', mess_type='warning')
         overwrite = 1
 
     if not overwrite:
@@ -1063,7 +1063,7 @@ def get_slices_matching_with_vertebral_levels_based_centerline(vertebral_levels,
 
     # Check if there are only two values [start_level, end_level] and if the end level is higher than the start level
     if (len(vert_levels_list) > 2) or (vert_levels_list[0] > vert_levels_list[1]):
-        sct.printv('\nERROR:  "' + vertebral_levels + '" is not correct. Enter format "1:4". Exit program.\n', type='error')
+        sct.printv('\nERROR:  "' + vertebral_levels + '" is not correct. Enter format "1:4". Exit program.\n', mess_type='error')
 
     # Extract the vertebral levels available in the metric image
     vertebral_levels_available = np.array(list(set(vertebral_labeling_data[vertebral_labeling_data > 0])), dtype=np.int32)
@@ -1085,8 +1085,8 @@ def get_slices_matching_with_vertebral_levels_based_centerline(vertebral_levels,
                        'Selected the lowest vertebral level available: ' + str(int(vert_levels_list[0])))  # record the
                        # warning to write it later in the .txt output file
         sct.printv('WARNING: the bottom vertebral level you selected is lower to the lowest ' \
-                                          'level available \n--> Selected the lowest vertebral level available: ' +\
-              str(int(vert_levels_list[0])), type='warning')
+                                          'level available \n--> Selected the lowest vertebral level available: ' + \
+                   str(int(vert_levels_list[0])), mess_type='warning')
 
     if vert_levels_list[1] > max_vert_level_available:
         vert_levels_list[1] = max_vert_level_available
@@ -1096,7 +1096,7 @@ def get_slices_matching_with_vertebral_levels_based_centerline(vertebral_levels,
 
         sct.printv('WARNING: the top vertebral level you selected is higher to the highest ' \
                                           'level available \n--> Selected the highest vertebral level available: ' + \
-              str(int(vert_levels_list[1])), type='warning')
+                   str(int(vert_levels_list[1])), mess_type='warning')
 
     if vert_levels_list[0] not in vertebral_levels_available:
         distance = vertebral_levels_available - vert_levels_list[0]  # relative distance
@@ -1107,7 +1107,7 @@ def get_slices_matching_with_vertebral_levels_based_centerline(vertebral_levels,
         warning.append('WARNING: the bottom vertebral level you selected is not available --> Selected the nearest '
                        'inferior level available: ' + str(int(vert_levels_list[0])))
         sct.printv('WARNING: the bottom vertebral level you selected is not available \n--> Selected the ' \
-                             'nearest inferior level available: ' + str(int(vert_levels_list[0])), type='warning')  # record the
+                             'nearest inferior level available: ' + str(int(vert_levels_list[0])), mess_type='warning')  # record the
         # warning to write it later in the .txt output file
 
     if vert_levels_list[1] not in vertebral_levels_available:
@@ -1120,7 +1120,7 @@ def get_slices_matching_with_vertebral_levels_based_centerline(vertebral_levels,
                        ' level available: ' + str(int(vert_levels_list[1])))  # record the warning to write it later in the .txt output file
 
         sct.printv('WARNING: the top vertebral level you selected is not available \n--> Selected the ' \
-                             'nearest superior level available: ' + str(int(vert_levels_list[1])), type='warning')
+                             'nearest superior level available: ' + str(int(vert_levels_list[1])), mess_type='warning')
 
     # Find slices included in the vertebral levels wanted by the user
     # if the median vertebral level of this slice is in the vertebral levels asked by the user, record the slice number

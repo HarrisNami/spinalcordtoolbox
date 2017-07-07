@@ -99,7 +99,7 @@ def main(args=None):
     functions = fill_functions()
     if function_to_test:
         if not function_to_test in functions:
-            sct.printv('Function "%s" is not part of the list of testing functions' % function_to_test, type='warning')
+            sct.printv('Function "%s" is not part of the list of testing functions' % function_to_test, mess_type='warning')
         # loop across all functions and test them
         status = [test_function(f) for f in functions if function_to_test == f]
     else:

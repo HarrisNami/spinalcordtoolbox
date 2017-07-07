@@ -343,7 +343,7 @@ def apply_ants_transfo(fixed_im, moving_im, search_reg=True, transfo_type='Rigid
         sct.printv('WARNING: AN ERROR OCCURRED WHEN DOING RIGID REGISTRATION USING ANTs', 1, 'warning')
         print e
     else:
-        sct.printv('Removing temporary files ...', verbose=verbose, type='normal')
+        sct.printv('Removing temporary files ...', verbose=verbose, mess_type='normal')
         os.chdir('..')
         sct.run('rm -rf ' + dir_name + '/', verbose=verbose)
 

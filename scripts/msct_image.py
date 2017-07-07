@@ -982,7 +982,7 @@ class Image(object):
                     slice_seg = seg.data[:, :, index]
         else:
             from sct_utils import printv
-            printv('ERROR: wrong plan input to save slice. Please choose "sagittal", "coronal" or "axial"', self.verbose, type='error')
+            printv('ERROR: wrong plan input to save slice. Please choose "sagittal", "coronal" or "axial"', self.verbose, mess_type='error')
 
         return (slice, slice_seg)
 
@@ -1061,8 +1061,8 @@ class Image(object):
 
         except RuntimeError, e:
             from sct_utils import printv
-            printv('WARNING: your device does not seem to have display feature', self.verbose, type='warning')
-            printv(str(e), self.verbose, type='warning')
+            printv('WARNING: your device does not seem to have display feature', self.verbose, mess_type='warning')
+            printv(str(e), self.verbose, mess_type='warning')
         return fname_png
 
     def save_quality_control(self, plane='sagittal', n_slices=1, seg=None, thr=0, cmap_col='red', format='.png', path_output='./', verbose=1):
@@ -1080,7 +1080,7 @@ class Image(object):
             max_n_slices = nz
         else:
             max_n_slices = None
-            printv('ERROR: wrong plan input to save slice. Please choose "sagittal", "coronal" or "axial"', self.verbose, type='error')
+            printv('ERROR: wrong plan input to save slice. Please choose "sagittal", "coronal" or "axial"', self.verbose, mess_type='error')
 
         if n_slices > max_n_slices:
             index_list = range(max_n_slices)
@@ -1098,8 +1098,8 @@ class Image(object):
                 info_str += ' & ' + filename_gmseg_image_png
             printv(info_str, verbose, 'info')
         except RuntimeError, e:
-            printv('WARNING: your device does not seem to have display feature', self.verbose, type='warning')
-            printv(str(e), self.verbose, type='warning')
+            printv('WARNING: your device does not seem to have display feature', self.verbose, mess_type='warning')
+            printv(str(e), self.verbose, mess_type='warning')
 
         self.change_orientation(ori)
         if seg is not None:

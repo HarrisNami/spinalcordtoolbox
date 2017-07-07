@@ -50,7 +50,7 @@ class ErnstAngle:
         tr_range = arange(tr_min, tr_max, step)
         theta_E = self.getErnstAngle(tr_range)
 
-        sct.printv("\nDrawing", type='info')
+        sct.printv("\nDrawing", mess_type='info')
         plt.plot(tr_range, theta_E, linewidth=1.0)
         plt.xlabel("TR (in $ms$)")
         plt.ylabel("$\Theta_E$ (in degree)")
@@ -61,7 +61,7 @@ class ErnstAngle:
         if self.tr is not None:
             plt.plot(self.tr, self.getErnstAngle(self.tr), 'ro')
         if self.fname_output is not None :
-            sct.printv("\nSaving figure", type='info')
+            sct.printv("\nSaving figure", mess_type='info')
             plt.savefig(self.fname_output, format='png')
         plt.show()
 
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 
     graph = ErnstAngle(input_t1, tr=input_tr, fname_output=input_fname_output)
     if input_tr is not None:
-        sct.printv("\nValue of the Ernst Angle with T1=" + str(graph.t1) + "ms and TR=" + str(input_tr) + "ms :", verbose=verbose, type='info')
+        sct.printv("\nValue of the Ernst Angle with T1=" + str(graph.t1) + "ms and TR=" + str(input_tr) + "ms :", verbose=verbose, mess_type='info')
         sct.printv(str(graph.getErnstAngle(input_tr)))
         if input_tr > input_tr_max:
             input_tr_max = input_tr + 500

@@ -69,12 +69,12 @@ class FullGmSegmentation:
 
         before = time.time()
         self.param = param
-        sct.printv('\nBuilding the appearance model...', verbose=self.param.verbose, type='normal')
+        sct.printv('\nBuilding the appearance model...', verbose=self.param.verbose, mess_type='normal')
         if model is None:
             self.model = Model(model_param=self.param, k=0.8)
         else:
             self.model = model
-        sct.printv('\n--> OK !', verbose=self.param.verbose, type='normal')
+        sct.printv('\n--> OK !', verbose=self.param.verbose, mess_type='normal')
 
         self.target_fname = check_file_to_niigz(target_fname)
         self.sc_seg_fname = check_file_to_niigz(sc_seg_fname)
@@ -119,19 +119,19 @@ class FullGmSegmentation:
 
     # ------------------------------------------------------------------------------------------------------------------
     def segmentation_pipeline(self):
-        sct.printv('\nDoing target pre-processing ...', verbose=self.param.verbose, type='normal')
+        sct.printv('\nDoing target pre-processing ...', verbose=self.param.verbose, mess_type='normal')
         self.preprocessed = Preprocessing(self.target_fname, self.sc_seg_fname, self.t2_data, denoising=self.param.target_denoising)
         if self.preprocessed.level_fname is not None:
             self.level_to_use = self.preprocessed.level_fname
 
-        sct.printv('\nDoing target gray matter segmentation ...', verbose=self.param.verbose, type='normal')
+        sct.printv('\nDoing target gray matter segmentation ...', verbose=self.param.verbose, mess_type='normal')
         self.gm_seg = GMsegSupervisedMethod(self.preprocessed.treated_target, self.level_to_use, self.model, gm_seg_param=self.param)
 
         if self.ref_gm_seg_fname is not None:
-            sct.printv('Computing Dice coefficient and Hausdorff distance ...', verbose=self.param.verbose, type='normal')
+            sct.printv('Computing Dice coefficient and Hausdorff distance ...', verbose=self.param.verbose, mess_type='normal')
             self.dice_name, self.hausdorff_name = self.validation()
 
-        sct.printv('\nDoing result post-processing ...', verbose=self.param.verbose, type='normal')
+        sct.printv('\nDoing result post-processing ...', verbose=self.param.verbose, mess_type='normal')
         self.post_processing()
 
     # ------------------------------------------------------------------------------------------------------------------

@@ -221,7 +221,7 @@ class Image(object):
 
         self.hdr.set_data_shape(self.data.shape)
         img = Nifti1Image(self.data, None, self.hdr)
-        printv('saving ' + self.path + self.file_name + self.ext + '\n', verbose=self.verbose, type='normal')
+        printv('saving ' + self.path + self.file_name + self.ext + '\n', verbose=self.verbose, mess_type='normal')
         save(img, self.path + self.file_name + self.ext)
 
     # flatten the array in a single dimension vector, its shape will be (d, 1) compared to the flatten built in method

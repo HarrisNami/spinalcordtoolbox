@@ -203,7 +203,7 @@ class ModelDictionaryBySlice:
                 if j_im == j_seg:
                     self.dic_data_info[subject_dir]['n_slices'] = (first_slice, total_j_im)
                 else:
-                    sct.printv('ERROR: subject ' + subject_dir + ' doesn\'t have the same number of slice images and segmentations', verbose=self.param.verbose, type='error')
+                    sct.printv('ERROR: subject ' + subject_dir + ' doesn\'t have the same number of slice images and segmentations', verbose=self.param.verbose, mess_type='error')
 
         return np.asarray(slices)
 
@@ -1255,11 +1255,11 @@ sct_Image
 
         self.dictionary = ModelDictionaryBySlice(dic_param=gm_seg_param)
 
-        sct.printv('\nBuilding the appearance model...', verbose=gm_seg_param.verbose, type='normal')
+        sct.printv('\nBuilding the appearance model...', verbose=gm_seg_param.verbose, mess_type='normal')
         # build the appearance model
         self.model = Model(model_param=gm_seg_param, dictionary=self.dictionary, k=0.8)
 
-        sct.printv('\nConstructing target image ...', verbose=gm_seg_param.verbose, type='normal')
+        sct.printv('\nConstructing target image ...', verbose=gm_seg_param.verbose, mess_type='normal')
         # construct target image
         self.target_image = Image(target_fname)
 

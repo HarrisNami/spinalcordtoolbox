@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     if not os.path.isfile(json_file):
         printv('Can not start the quality control viewer.'
-               ' This is not a proper QC folder', type='error')
+               ' This is not a proper QC folder', mess_type='error')
         sys.exit(-1)
 
     qc_path = os.path.realpath(qc_path)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     os.chdir(qc_path)
     httpd = HTTPServer(('', 8888), SimpleHTTPRequestHandler)
     printv('QC viewer started on:')
-    printv('http://127.0.0.1:8888', type='info')
+    printv('http://127.0.0.1:8888', mess_type='info')
     printv('Copy and paste the address into your web browser')
     printv('Press "Ctrl" + "C" to stop sct_qc')
     try:

@@ -235,7 +235,7 @@ def validate_scad(folder_input, contrast):
                     rmse[i] = root_mean_square
 
                 else:
-                    printv("Cannot find the manual segmentation", type="warning")
+                    printv("Cannot find the manual segmentation", mess_type="warning")
 
             except Exception, e:
                 print e.message
@@ -313,7 +313,7 @@ def scad_propseg_validation(folder_input, contrast):
                     # Calculate dice of propseg_scad
                     sct.run("sct_dice_coefficient propseg_scad.nii.gz "+manual_segmentation+" -o propseg_scad_result.txt")
                 else:
-                    printv("Cannot find the manual segmentation", type="warning")
+                    printv("Cannot find the manual segmentation", mess_type="warning")
 
             except Exception, e:
                 print e.message
@@ -360,7 +360,7 @@ def check_dices(folder_input, contrast):
                     diff[i] = float(propseg_dice[0].replace("3D Dice coefficient = ", "")) - float(scad_dice[0].replace("3D Dice coefficient = ", ""))
 
                 else:
-                    printv("Cannot find the dice results for patient", type="warning")
+                    printv("Cannot find the dice results for patient", mess_type="warning")
 
             except Exception, e:
                 print e.message

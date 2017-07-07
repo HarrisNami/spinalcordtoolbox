@@ -484,7 +484,7 @@ if __name__ == "__main__":
             elif use_viewer == "mask":
                 cmd += " -init-mask " + folder_output + mask_reoriented_filename
         else:
-            sct.printv('\nERROR: the viewer has been closed before entering any manual points. Please try again.', 1, type='error')
+            sct.printv('\nERROR: the viewer has been closed before entering any manual points. Please try again.', 1, mess_type='error')
 
     # If using OptiC, enabled by default
     elif use_optic:
@@ -509,7 +509,7 @@ if __name__ == "__main__":
 
     # check status is not 0
     if not status == 0:
-        sct.printv('\nERROR: Automatic cord detection failed. Please initialize using -init-centerline or -init-mask (see help).', 1, type='error')
+        sct.printv('\nERROR: Automatic cord detection failed. Please initialize using -init-centerline or -init-mask (see help).', 1, mess_type='error')
 
     # build output filename
     file_seg = file_data + "_seg" + ext_data
@@ -547,7 +547,7 @@ if __name__ == "__main__":
         test(qcslice.Axial(Image(fname_input_data), Image(fname_seg)))
         sct.printv('Sucessfully generated the QC results in %s' % param.qc_results)
         sct.printv('Use the following command to see the results in a browser:')
-        sct.printv('sct_qc -folder %s' % qc_path, type='info')
+        sct.printv('sct_qc -folder %s' % qc_path, mess_type='info')
 
     sct.printv('\nDone! To view results, type:', verbose)
     sct.printv("fslview " + fname_input_data + " " + fname_seg + " -l Red -b 0,1 -t 0.7 &\n", verbose, 'info')

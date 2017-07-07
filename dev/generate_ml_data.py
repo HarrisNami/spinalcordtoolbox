@@ -29,7 +29,7 @@ def generate_data_list(folder_dataset, verbose=1):
     if not data_subjects:
         sct.printv('ERROR: No subject data were found in ' + folder_dataset + '. '
                    'Please organize your data correctly or provide a correct dataset.',
-                   verbose=verbose, type='error')
+                   verbose=verbose, mess_type='error')
 
     return data_subjects, subjects_dir
 

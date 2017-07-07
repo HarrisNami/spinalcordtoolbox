@@ -556,7 +556,7 @@ def smoothing_window(x, window_len=11, window='hanning', verbose = 0, robust=0, 
     # if x.size < window_len:
     #     raise ValueError, "Input vector needs to be bigger than window size."
     if window_len < 3:
-        sct.printv('Window size is too small. No smoothing was applied.', verbose=verbose, type='warning')
+        sct.printv('Window size is too small. No smoothing was applied.', verbose=verbose, mess_type='warning')
         return x
     if not window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
         raise ValueError, "Window can only be the following: 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'"
@@ -577,7 +577,7 @@ def smoothing_window(x, window_len=11, window='hanning', verbose = 0, robust=0, 
     # The number of points of the curve must be superior to int(window_length/(2.0*pz))
     if window_len > int(nb_points):
         window_len = int(nb_points)
-        sct.printv("WARNING: The smoothing window is larger than the number of points. New value: " + str(window_len), verbose=verbose, type='warning')
+        sct.printv("WARNING: The smoothing window is larger than the number of points. New value: " + str(window_len), verbose=verbose, mess_type='warning')
 
     # Make window_len as odd integer (x = x+1 if x is even)
     window_len_int = ceil((floor(window_len) + 1) / 2) * 2 - 1

@@ -300,7 +300,7 @@ def main(argv=None):  # pylint: disable=unused-argument
         for i in range(depth):
             if image_size_temp % 2 != 0:
                 sct.printv('ERROR: image size must satisfy requirements (select the input tile size such that all 2x2 '
-                           'max-pooling operationsare applied to a layer with an even x- and y-size.)', type='error')
+                           'max-pooling operationsare applied to a layer with an even x- and y-size.)', mess_type='error')
             image_size_temp = (image_size_temp) / 2
         image_size_bottom = image_size_temp
 

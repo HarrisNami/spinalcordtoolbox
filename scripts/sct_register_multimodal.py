@@ -220,7 +220,7 @@ class Paramreg(object):
         list_objects = paramreg_user.split(',')
         for object in list_objects:
             if len(object) < 2:
-                sct.printv('Please check parameter -param (usage changed from previous version)', 1, type='error')
+                sct.printv('Please check parameter -param (usage changed from previous version)', 1, mess_type='error')
             obj = object.split('=')
             setattr(self, obj[0], obj[1])
 

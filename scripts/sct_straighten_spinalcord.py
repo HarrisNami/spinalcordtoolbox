@@ -70,7 +70,7 @@ def smooth_centerline(fname_centerline, algo_fitting='hanning', type_window='han
     distances = []
 
     if nz_nonz <= 5 and algo_fitting == 'nurbs':
-        sct.printv('WARNING: switching to hanning smoothing due to low number of slices.', verbose=verbose, type='warning')
+        sct.printv('WARNING: switching to hanning smoothing due to low number of slices.', verbose=verbose, mess_type='warning')
         algo_fitting = 'hanning'
 
     # get center of mass of the centerline/segmentation and remove outliers
@@ -941,7 +941,7 @@ def main(args=None):
             if param_split[0] == 'algo_fitting':
                 sc_straight.algo_fitting = param_split[1]
                 if sc_straight.algo_fitting == 'hanning':
-                    sct.printv("WARNING: hanning has been disabled in this function. The fitting algorithm has been changed to NURBS.", type='warning')
+                    sct.printv("WARNING: hanning has been disabled in this function. The fitting algorithm has been changed to NURBS.", mess_type='warning')
                     sc_straight.algo_fitting = 'nurbs'
             if param_split[0] == 'precision':
                 sc_straight.precision = float(param_split[1])

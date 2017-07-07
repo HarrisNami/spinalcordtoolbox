@@ -277,7 +277,7 @@ def check_mask_point_not_empty(mask_points):
         return True
     else:
         sct.printv('\nERROR: the viewer has been closed before entering all manual points. Please try again.', 1,
-                   type='error')
+                   mess_type='error')
         return False
 
 def make_labels_image_from_list_points(mask_points,reoriented_image_filename,image_input_orientation):
@@ -458,7 +458,7 @@ def main():
         try:
             register_landmarks(ftmp_label, ftmp_template_label, paramreg.steps['0'].dof, fname_affine='straight2templateAffine.txt', verbose=verbose)
         except Exception:
-            sct.printv('ERROR: input labels do not seem to be at the right place. Please check the position of the labels. See documentation for more details: https://sourceforge.net/p/spinalcordtoolbox/wiki/create_labels/', verbose=verbose, type='error')
+            sct.printv('ERROR: input labels do not seem to be at the right place. Please check the position of the labels. See documentation for more details: https://sourceforge.net/p/spinalcordtoolbox/wiki/create_labels/', verbose=verbose, mess_type='error')
 
         # Concatenate transformations: curve --> straight --> affine
         sct.printv('\nConcatenate transformations: curve --> straight --> affine...', verbose)
@@ -593,7 +593,7 @@ def main():
         try:
             register_landmarks(ftmp_template_label, ftmp_label, paramreg.steps['0'].dof, fname_affine=warp_forward[0], verbose=verbose, path_qc=param.path_qc)
         except Exception:
-            sct.printv('ERROR: input labels do not seem to be at the right place. Please check the position of the labels. See documentation for more details: https://sourceforge.net/p/spinalcordtoolbox/wiki/create_labels/', verbose=verbose, type='error')
+            sct.printv('ERROR: input labels do not seem to be at the right place. Please check the position of the labels. See documentation for more details: https://sourceforge.net/p/spinalcordtoolbox/wiki/create_labels/', verbose=verbose, mess_type='error')
 
         # loop across registration steps
         for i_step in range(1, len(paramreg.steps)):

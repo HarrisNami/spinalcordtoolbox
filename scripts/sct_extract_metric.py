@@ -584,7 +584,7 @@ def get_slices_matching_with_vertebral_levels(metric_data, vertebral_levels, dat
         warning.append('WARNING: the bottom vertebral level you selected is lower than the lowest level available --> '
                        'Selected the lowest vertebral level available: ' + str(int(vert_levels_list[0])))  # record the
                        # warning to write it later in the .txt output file
-        sct.printv('WARNING: the bottom vertebral level you selected is lower than the lowest level available \n--> Selected the lowest vertebral level available: ' + str(int(vert_levels_list[0])), type='warning')
+        sct.printv('WARNING: the bottom vertebral level you selected is lower than the lowest level available \n--> Selected the lowest vertebral level available: ' + str(int(vert_levels_list[0])), mess_type='warning')
 
     if vert_levels_list[1] > max_vert_level_available:
         vert_levels_list[1] = max_vert_level_available
@@ -592,7 +592,7 @@ def get_slices_matching_with_vertebral_levels(metric_data, vertebral_levels, dat
                        'Selected the highest vertebral level available: ' + str(int(vert_levels_list[1])))  # record the
         # warning to write it later in the .txt output file
 
-        sct.printv('WARNING: the top vertebral level you selected is higher than the highest level available \n--> Selected the highest vertebral level available: ' + str(int(vert_levels_list[1])), type='warning')
+        sct.printv('WARNING: the top vertebral level you selected is higher than the highest level available \n--> Selected the highest vertebral level available: ' + str(int(vert_levels_list[1])), mess_type='warning')
 
     if vert_levels_list[0] not in vertebral_levels_available:
         distance = vertebral_levels_available - vert_levels_list[0]  # relative distance
@@ -602,7 +602,7 @@ def get_slices_matching_with_vertebral_levels(metric_data, vertebral_levels, dat
         # of the initial list corresponding to this minimal distance
         warning.append('WARNING: the bottom vertebral level you selected is not available --> Selected the nearest '
                        'inferior level available: ' + str(int(vert_levels_list[0])))
-        sct.printv('WARNING: the bottom vertebral level you selected is not available \n--> Selected the nearest inferior level available: ' + str(int(vert_levels_list[0])), type='warning')  # record the
+        sct.printv('WARNING: the bottom vertebral level you selected is not available \n--> Selected the nearest inferior level available: ' + str(int(vert_levels_list[0])), mess_type='warning')  # record the
         # warning to write it later in the .txt output file
 
     if vert_levels_list[1] not in vertebral_levels_available:
@@ -614,7 +614,7 @@ def get_slices_matching_with_vertebral_levels(metric_data, vertebral_levels, dat
         warning.append('WARNING: the top vertebral level you selected is not available --> Selected the nearest superior'
                        ' level available: ' + str(int(vert_levels_list[1])))  # record the warning to write it later in the .txt output file
 
-        sct.printv('WARNING: the top vertebral level you selected is not available \n--> Selected the nearest superior level available: ' + str(int(vert_levels_list[1])), type='warning')
+        sct.printv('WARNING: the top vertebral level you selected is not available \n--> Selected the nearest superior level available: ' + str(int(vert_levels_list[1])), mess_type='warning')
 
     # Extract metric data size X, Y, Z
     [mx, my, mz] = metric_data.shape
@@ -778,7 +778,7 @@ def save_metrics(labels_id_user, indiv_labels_ids, combined_labels_ids, indiv_la
 
         # if the user asked for no overwriting but the specified output file does not exist yet
         if (not overwrite) and (not os.path.isfile(fname_output)):
-            sct.printv('WARNING: You asked to edit the pre-existing file \"' + fname_output + '\" but this file does not exist. It will be created.', type='warning')
+            sct.printv('WARNING: You asked to edit the pre-existing file \"' + fname_output + '\" but this file does not exist. It will be created.', mess_type='warning')
             overwrite = 1
 
         if not overwrite:
@@ -913,7 +913,7 @@ def save_metrics(labels_id_user, indiv_labels_ids, combined_labels_ids, indiv_la
         output_file.close()
 
     else:
-        sct.printv('WARNING: The file extension for the output result file that was specified was not recognized. No result file will be created.', type='warning')
+        sct.printv('WARNING: The file extension for the output result file that was specified was not recognized. No result file will be created.', mess_type='warning')
 
     sct.printv('\tDone.')
 
@@ -963,7 +963,7 @@ def check_labels(indiv_labels_ids, selected_labels):
 
         # Check if the selected labels are in the available labels ids
         if not set(list_ids_of_labels_of_interest).issubset(set(indiv_labels_ids)):
-            sct.printv('\nERROR: At least one of the selected labels (' + str(list_ids_of_labels_of_interest) + ') is not available according to the label list from the text file in the atlas folder. Exit program.\n\n', type='error')
+            sct.printv('\nERROR: At least one of the selected labels (' + str(list_ids_of_labels_of_interest) + ') is not available according to the label list from the text file in the atlas folder. Exit program.\n\n', mess_type='error')
 
     return list_ids_of_labels_of_interest
 

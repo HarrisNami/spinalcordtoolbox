@@ -171,7 +171,7 @@ def main():
     SNR = signal / noise
 
     # Display result
-    sct.printv('\nSNR_' + method + ' = ' + str(SNR) + '\n', type='info')
+    sct.printv('\nSNR_' + method + ' = ' + str(SNR) + '\n', mess_type='info')
 
 
 # START PROGRAM
